@@ -9,6 +9,7 @@ import { Cat01Component } from './page/cat01/cat01.component';
 import { Cat02Component } from './page/cat02/cat02.component';
 import { HomeComponent } from './page/home/home.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { SalePipe } from './pipes/sale.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CurrencyPipe } from './pipes/currency.pipe';
     Cat02Component,
     HomeComponent,
     CurrencyPipe,
+    SalePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
