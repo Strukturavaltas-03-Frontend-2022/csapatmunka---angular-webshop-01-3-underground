@@ -39,11 +39,17 @@
       <div class="card-body">
         <h5 class="card-title">{{ game.name }}</h5>
         <p class="card-text mt-auto">
+          <span *ngIf="isOnSale[i] !== 0 && game.price !== 0"
+            ><s style="color: red">
+              {{ game.price | sale: isOnSale[i] | currency }} </s
+            >🏷️</span
+          >
+
           {{ game.price | currency }}
         </p>
       </div>
       <p *ngIf="isOnSale[i] !== 0 && game.price !== 0" class="sale-badge">
-        {{ isOnSale[i] }}%
+        -{{ isOnSale[i] }}%
       </p>
     </div>
   </div>
