@@ -19,3 +19,10 @@ Additional changes:
 - Added bootstrap scripts to angular.json for dropdown logic
 - Removed content from app.component, moved it to home.component
 - Removed spec files from pipes for better visibility
+
+  2022.11.07.
+
+- Minor changes to visuals (changed favicon, menu colors)
+- Added category model
+- Added additional filtering checkbox for Free To Play games
+- Finetuned and fixed logic for all filters

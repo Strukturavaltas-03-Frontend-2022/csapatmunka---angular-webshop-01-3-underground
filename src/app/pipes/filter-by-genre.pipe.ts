@@ -10,7 +10,7 @@ export class FilterByGenrePipe implements PipeTransform {
       return games;
     } else
       return games.filter((game) =>
-        game.catId.some((id) => filterParams.includes(id))
+        filterParams.every((id) => game.catId.includes(id))
       );
   }
 }

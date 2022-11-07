@@ -6,31 +6,30 @@ import { Product } from '../model/product';
 })
 export class FilterByPricePipe implements PipeTransform {
   transform(games: Product[], filterParams: string[]) {
-    if (filterParams.length === 0 || filterParams.length === 3) {
+    if (filterParams.length === 0 || filterParams.length >= 3) {
       return games;
-    } else if ((filterParams[0] = 'f2p')) {
-      return games.filter((game) => game.price === 0);
-    } else if ((filterParams[0] = 'low')) {
-      return games.filter((game) => game.price <= 5);
-    } else if ((filterParams[0] = 'mid')) {
-      return games.filter((game) => game.price > 5 && game.price < 15);
-    } else if ((filterParams[0] = 'high')) {
-      return games.filter((game) => game.price >= 15);
-    } else if (
-      (filterParams[0] === 'low' && filterParams[1] === 'mid') ||
-      (filterParams[0] === 'mid' && filterParams[1] === 'low')
-    ) {
-      return games.filter((game) => game.price < 15);
-    } else if (
-      (filterParams[0] === 'low' && filterParams[1] === 'high') ||
-      (filterParams[0] === 'high' && filterParams[1] === 'low')
-    ) {
-      return games.filter((game) => game.price <= 5 || game.price >= 15);
-    } else if (
-      (filterParams[0] === 'mid' && filterParams[1] === 'high') ||
-      (filterParams[0] === 'high' && filterParams[1] === 'mid')
-    ) {
-      return games.filter((game) => game.price > 5);
+    }
+    if (filterParams.length === 1) {
+      if (filterParams.includes('low')) {
+        return games.filter((game) => game.price <= 5);
+      }
+      if (filterParams.includes('mid')) {
+        return games.filter((game) => game.price > 5 && game.price < 15);
+      }
+      if (filterParams.includes('high')) {
+        return games.filter((game) => game.price >= 15);
+      }
+    }
+    if (filterParams.length === 2) {
+      if (filterParams.includes('high') && filterParams.includes('low')) {
+        return games.filter((game) => game.price >= 15 || game.price <= 5);
+      }
+      if (filterParams.includes('high') && filterParams.includes('mid')) {
+        return games.filter((game) => game.price > 5);
+      }
+      if (filterParams.includes('low') && filterParams.includes('mid')) {
+        return games.filter((game) => game.price < 15);
+      }
     } else {
       return games;
     }

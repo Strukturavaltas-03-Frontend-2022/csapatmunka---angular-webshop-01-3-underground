@@ -1,8 +1,9 @@
 <app-filters
-  (genreChange)="paramUpdates($event)"
+  (genreChange)="genreUpdates($event)"
   (saleChkbxChange)="saleChkbxUpdates($event)"
   (priceRangeChange)="priceUpdates($event)"
   (keywordChange)="titleUpdates($event)"
+  (f2pChkbxChange)="f2pChkbxUpdates($event)"
 ></app-filters>
 
 <div class="container-fluid">
@@ -10,8 +11,9 @@
     <div
       *ngFor="
         let game of gameList
-          | filterByGenre: filterParams
+          | filterByGenre: genreParams
           | filterByDiscount: saleChecker
+          | filterByF2p: freeChecker
           | filterByPrice: priceRanges
           | filterByTitle: searchString;
         let i = index
