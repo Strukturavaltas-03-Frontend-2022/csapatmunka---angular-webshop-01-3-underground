@@ -17,6 +17,7 @@ import { FilterByGenrePipe } from './pipes/filter-by-genre.pipe';
 import { FilterByDiscountPipe } from './pipes/filter-by-discount.pipe';
 import { FilterByPricePipe } from './pipes/filter-by-price.pipe';
 import { FilterByTitlePipe } from './pipes/filter-by-title.pipe';
+import { FilterByF2pPipe } from './pipes/filter-by-f2p.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterByTitlePipe } from './pipes/filter-by-title.pipe';
     FilterByDiscountPipe,
     FilterByPricePipe,
     FilterByTitlePipe,
+    FilterByF2pPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

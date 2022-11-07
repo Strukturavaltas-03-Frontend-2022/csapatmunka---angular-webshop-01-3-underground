@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Product } from 'src/app/model/product';
 import { map } from 'rxjs/operators';
 
@@ -14,8 +14,9 @@ export class HomeComponent implements OnInit {
     'https://games-webshop-default-rtdb.europe-west1.firebasedatabase.app/games.json';
   isHovered: boolean[] = new Array(100).fill(false);
 
-  filterParams: number[] = [];
+  genreParams: number[] = [];
   saleChecker: boolean = false;
+  freeChecker: boolean = false;
   priceRanges: string[] = [];
   searchString: string = '';
 
@@ -67,16 +68,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  paramUpdates(params: number[]): void {
-    this.filterParams = params;
+  genreUpdates(params: number[]): void {
+    this.genreParams = [...params];
   }
 
   saleChkbxUpdates(param: boolean): void {
     this.saleChecker = param;
   }
 
+  f2pChkbxUpdates(param: boolean): void {
+    this.freeChecker = param;
+  }
+
   priceUpdates(params: string[]): void {
-    this.priceRanges = params;
+    this.priceRanges = [...params];
+    console.log(this.priceRanges);
   }
 
   titleUpdates(param: string) {
