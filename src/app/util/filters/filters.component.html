@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-6 mx-auto d-flex justify-content-around alig-items-center">
+    <div class="dropdown mx-5">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter by genre
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(3)" type="checkbox" /> Singleplayer
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(2)" type="checkbox" /> Multiplayer
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(13)" type="checkbox" /> Co-op
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(8)" type="checkbox" /> Action
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(14)" type="checkbox" /> Adventure
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(1)" type="checkbox" /> Shooter
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(4)" type="checkbox" /> Role-playing game
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(11)" type="checkbox" /> Massively
+          Multiplayer Online
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(10)" type="checkbox" /> Real-time
+          strategy
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(9)" type="checkbox" /> Horror
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(16)" type="checkbox" /> Open-world
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(15)" type="checkbox" /> Story-driven
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(6)" type="checkbox" /> Battle Royal
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(5)" type="checkbox" /> Simulator
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(7)" type="checkbox" /> Sport
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onGenreChange(12)" type="checkbox" /> Racing
+        </label>
+      </div>
+    </div>
+
+    <div class="dropdown mx-5">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter by price
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('f2p')" type="checkbox" /> Free To
+          Play
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('low')" type="checkbox" /> &lt;5€
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('mid')" type="checkbox" /> 5-15€
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('high')" type="checkbox" /> &gt;15€
+        </label>
+      </div>
+    </div>
+    <label class="mx-5">
+      <input type="checkbox" (click)="toggleDiscounted()" /> On-Sale
+    </label>
+
+    <input
+      class="mx-5"
+      placeholder="Search for game title"
+      type="textarea"
+      [(ngModel)]="searchKey"
+      (keyup)="onTitleSearch()"
+    />
+  </div>
+</div>

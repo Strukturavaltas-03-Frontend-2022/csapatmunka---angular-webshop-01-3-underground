@@ -10,4 +10,5 @@ export class Product {
   stock: number = 0;
   featured: boolean = false;
   active: boolean = true;
+  onSale: number = 0;
 }
