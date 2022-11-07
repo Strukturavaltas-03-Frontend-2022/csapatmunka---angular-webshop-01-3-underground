@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { Cat01Component } from './page/cat01/cat01.component';
-import { Cat02Component } from './page/cat02/cat02.component';
 import { HomeComponent } from './page/home/home.component';
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { SalePipe } from './pipes/sale.pipe';
@@ -18,13 +16,13 @@ import { FilterByDiscountPipe } from './pipes/filter-by-discount.pipe';
 import { FilterByPricePipe } from './pipes/filter-by-price.pipe';
 import { FilterByTitlePipe } from './pipes/filter-by-title.pipe';
 import { FilterByF2pPipe } from './pipes/filter-by-f2p.pipe';
+import { FeaturedComponent } from './page/featured/featured.component';
+import { SalesComponent } from './page/sales/sales.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    Cat01Component,
-    Cat02Component,
     HomeComponent,
     CurrencyPipe,
     SalePipe,
@@ -35,6 +33,8 @@ import { FilterByF2pPipe } from './pipes/filter-by-f2p.pipe';
     FilterByPricePipe,
     FilterByTitlePipe,
     FilterByF2pPipe,
+    FeaturedComponent,
+    SalesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

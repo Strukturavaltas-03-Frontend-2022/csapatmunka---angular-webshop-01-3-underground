@@ -26,3 +26,8 @@ Additional changes:
 - Added category model
 - Added additional filtering checkbox for Free To Play games
 - Finetuned and fixed logic for all filters
+
+Additional changes:
+
+- Moved fetch logic to ProductService
+- Cat01 Cat02 got replaced by Features and Sales (routerlinks updated)

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Cat01Component } from './page/cat01/cat01.component';
-import { Cat02Component } from './page/cat02/cat02.component';
+import { FeaturedComponent } from './page/featured/featured.component';
+import { SalesComponent } from './page/sales/sales.component';
 import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
@@ -10,21 +10,21 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'cat01',
-    component: Cat01Component,
+    path: 'featured',
+    component: FeaturedComponent,
   },
   {
-    path: 'cat02',
-    component: Cat02Component,
+    path: 'sales',
+    component: SalesComponent,
   },
   {
     path: '**',
     component: HomeComponent,
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
