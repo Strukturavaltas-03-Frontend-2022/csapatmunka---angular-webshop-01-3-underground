@@ -14,7 +14,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  private fetchProducts() {
+  fetchProducts(): Product[] {
     this.http
       .get<{ [key: string]: Product }>(this.firebaseUrl)
       .pipe(
@@ -29,11 +29,12 @@ export class ProductService {
         })
       )
       .subscribe((products) => {
-        this.gameList = products;
+        this.gameList = [...products];
       });
+    return this.gameList;
   }
 
-  onFetchProducts() {
-    this.fetchProducts();
-  }
+  // onFetchProducts() {
+  //   this.fetchProducts();
+  // }
 }
