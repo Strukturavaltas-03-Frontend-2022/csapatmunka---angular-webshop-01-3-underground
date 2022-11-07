@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-6 mx-auto d-flex justify-content-around alig-items-center">
+    <div class="dropdown mx-5">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter by genre
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <label *ngFor="let genre of genres" class="dropdown-item">
+          <input (change)="onGenreChange(genre.id)" type="checkbox" />
+          {{ genre.name }}
+        </label>
+      </div>
+    </div>
+
+    <div class="dropdown mx-5">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter by price
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('low')" type="checkbox" /> &lt;5€
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('mid')" type="checkbox" /> 5-15€
+        </label>
+        <label class="dropdown-item">
+          <input (click)="onPriceRangeChange('high')" type="checkbox" /> &gt;15€
+        </label>
+      </div>
+    </div>
+    <label class="mx-5">
+      <input type="checkbox" (click)="toggleDiscounted()" /> On-Sale
+    </label>
+    <label class="mx-5">
+      <input type="checkbox" (click)="toggleF2P()" /> Free to Play
+    </label>
+
+    <input
+      class="form-control mx-5 w-25"
+      placeholder="Search for game title"
+      type="textarea"
+      [(ngModel)]="searchKey"
+      (keyup)="onTitleSearch()"
+    />
+  </div>
+</div>
