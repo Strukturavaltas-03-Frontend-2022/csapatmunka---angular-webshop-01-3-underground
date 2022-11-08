@@ -40,3 +40,7 @@ Additional changes:
 - Started working on modal with detailed game information and additional purchase option
 - A shopping cart is now displayed in the navbar (not yet functional)
 - Started working on featured and sales components
+
+Additional Changes:
+
+- Featured component working progress
