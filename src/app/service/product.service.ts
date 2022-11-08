@@ -1,22 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  firebaseUrl: string =
-    'https://games-webshop-default-rtdb.europe-west1.firebasedatabase.app/games.json';
-
-  gameList: Product[] = [];
+  firebaseUrl: string = environment.apiURL;
+  entity: string = 'games.json';
 
   constructor(private http: HttpClient) {}
 
-  fetchProducts(): Product[] {
-    this.http
-      .get<{ [key: string]: Product }>(this.firebaseUrl)
+  fetchProducts() {
+    return this.http
+      .get<{ [key: string]: Product }>(`${this.firebaseUrl}${this.entity}`)
       .pipe(
         map((responseData) => {
           const productArray: Product[] = [];
@@ -27,14 +26,6 @@ export class ProductService {
           }
           return productArray;
         })
-      )
-      .subscribe((products) => {
-        this.gameList = [...products];
-      });
-    return this.gameList;
+      );
   }
-
-  // onFetchProducts() {
-  //   this.fetchProducts();
-  // }
 }

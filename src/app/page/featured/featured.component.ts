@@ -9,10 +9,11 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class FeaturedComponent implements OnInit {
   gameList: Product[] = [];
-  constructor(productService: ProductService) {
-    this.gameList = productService.fetchProducts();
-    console.log(this.gameList);
-  }
+  constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productService.fetchProducts().subscribe((games) => {
+      this.gameList = [...games];
+    });
+  }
 }

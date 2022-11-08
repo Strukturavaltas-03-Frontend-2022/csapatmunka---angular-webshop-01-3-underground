@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Product } from 'src/app/model/product';
 import { map } from 'rxjs/operators';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-home',
@@ -20,38 +21,20 @@ export class HomeComponent implements OnInit {
   priceRanges: string[] = [];
   searchString: string = '';
 
-  constructor(private http: HttpClient) {}
+  selectedGame: Product = new Product();
+  cartProductQuantity: number = 0;
+
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.onFetchProducts();
+    this.productService.fetchProducts().subscribe((games) => {
+      this.gameList = [...games];
+      this.calculatingFlashSales();
+    });
 
     setInterval(() => {
       this.calculatingFlashSales();
     }, 300000);
-  }
-
-  private fetchProducts() {
-    this.http
-      .get<{ [key: string]: Product }>(this.firebaseUrl)
-      .pipe(
-        map((responseData) => {
-          const productArray: Product[] = [];
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              productArray.push({ ...responseData[key], uniqueId: key });
-            }
-          }
-          return productArray;
-        })
-      )
-      .subscribe((products) => {
-        this.gameList = products;
-        this.calculatingFlashSales();
-      });
-  }
-
-  onFetchProducts() {
-    this.fetchProducts();
   }
 
   onHoverGame(index: number) {
@@ -82,10 +65,17 @@ export class HomeComponent implements OnInit {
 
   priceUpdates(params: string[]): void {
     this.priceRanges = [...params];
-    console.log(this.priceRanges);
   }
 
   titleUpdates(param: string) {
     this.searchString = param;
+  }
+
+  onCardClicked(game: Product) {
+    this.selectedGame = game;
+  }
+
+  addedToCart() {
+    this.cartProductQuantity += 1;
   }
 }
