@@ -6,6 +6,8 @@
   (f2pChkbxChange)="f2pChkbxUpdates($event)"
 ></app-filters>
 
+<!--<app-modal [currentGame]="selectedGame"></app-modal>-->
+
 <div class="container-fluid">
   <div class="row d-flex justify-content-center">
     <div
@@ -20,6 +22,7 @@
       "
       class="card mx-5 my-5"
       style="width: 18rem; border-radius: 1em"
+      (click)="onCardClicked(game)"
     >
       <ng-container *ngIf="isHovered[i] === false">
         <img
@@ -58,6 +61,8 @@
       <p *ngIf="game.onSale !== 0 && game.price !== 0" class="sale-badge">
         -{{ game.onSale }}%
       </p>
+
+      <a (click)="addedToCart()"><div class="cart">🛒</div></a>
     </div>
   </div>
 </div>
