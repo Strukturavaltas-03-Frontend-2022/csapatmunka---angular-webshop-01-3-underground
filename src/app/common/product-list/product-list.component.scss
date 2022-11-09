@@ -1,0 +1,42 @@
+/*.card {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  animation: enlarge 0.5s forwards ease-in-out;
+}
+
+.sale-badge {
+  position: absolute;
+  right: -20px;
+  top: 10px;
+  background: red;
+  text-align: center;
+  border-radius: 15px 15px;
+  color: white;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cart {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  background: white;
+  text-align: center;
+  border-radius: 0 0 0.8em 0;
+  padding: 5px 5px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@keyframes enlarge {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+*/
