@@ -28,4 +28,20 @@ export class ProductService {
         })
       );
   }
+
+  calculatingFlashSales(gameList: Product[]) {
+    gameList.forEach((game) =>
+      Math.random() > 0.6
+        ? (game.onSale = Math.round(Math.random() * 30) + 5)
+        : (game.onSale = 0)
+    );
+  }
+
+  updateProducts(updateArray: Product[]) {
+    let updatedObject: { [key: string]: Product } = {};
+    updateArray.forEach((game) => {
+      updatedObject[game.uniqueId] = game;
+    });
+    return this.http.patch(`${this.firebaseUrl}${this.entity}`, updatedObject);
+  }
 }

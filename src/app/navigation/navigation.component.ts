@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../model/product';
+import { Component, OnInit } from '@angular/core';
 import { ConfigService, IMenuItem } from '../service/config.service';
 
 @Component({
@@ -10,9 +9,6 @@ import { ConfigService, IMenuItem } from '../service/config.service';
 export class NavigationComponent implements OnInit {
   appName: string = this.config.appName;
   menuItems: IMenuItem[] = this.config.menuItems;
-
-  //@Input() cartItem: Product = new Product();
-  @Input() itemsInCart: number = 0;
 
   constructor(private config: ConfigService) {}
 
