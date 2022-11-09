@@ -1,5 +1,5 @@
 export class Product {
-  uniqueId?: string = '';
+  uniqueId: string = '';
   id: number = 1;
   catId: number[] = [];
   name: string = 'Title of the game';

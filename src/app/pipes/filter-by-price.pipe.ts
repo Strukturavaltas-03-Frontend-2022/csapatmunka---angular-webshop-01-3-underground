@@ -29,6 +29,8 @@ export class FilterByPricePipe implements PipeTransform {
       }
       if (filterParams.includes('low') && filterParams.includes('mid')) {
         return games.filter((game) => game.price < 15);
+      } else {
+        return games;
       }
     } else {
       return games;

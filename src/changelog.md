@@ -43,4 +43,13 @@ Additional changes:
 
 Additional Changes:
 
-- Featured component working progress
+- Featured component work in progress
+
+  2022.11.09. - ver. 1.25
+
+- Added product-card, product-list, product-slider components, moved content around
+- Featured page now features a random game genre with 5 randomly selected titles up top and all the rest in the category below
+- Sales page is wip
+- Fixed filter-by-price warnings, added select5 pipe to select five random items from any array
+- Added patch request to the product service to keep database up to date with local files each time there are new sales generated
+- Game catId-genre idetifier got moved to models, as it is now used in two different components for filtering purposes

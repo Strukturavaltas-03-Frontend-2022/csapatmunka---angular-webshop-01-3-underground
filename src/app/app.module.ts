@@ -18,6 +18,10 @@ import { FilterByTitlePipe } from './pipes/filter-by-title.pipe';
 import { FilterByF2pPipe } from './pipes/filter-by-f2p.pipe';
 import { FeaturedComponent } from './page/featured/featured.component';
 import { SalesComponent } from './page/sales/sales.component';
+import { ProductCardComponent } from './common/product-card/product-card.component';
+import { ProductSliderComponent } from './common/product-slider/product-slider.component';
+import { ProductListComponent } from './common/product-list/product-list.component';
+import { Select5Pipe } from './pipes/select5.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { SalesComponent } from './page/sales/sales.component';
     FilterByF2pPipe,
     FeaturedComponent,
     SalesComponent,
+    ProductCardComponent,
+    ProductSliderComponent,
+    ProductListComponent,
+    Select5Pipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
