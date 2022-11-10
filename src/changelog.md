@@ -53,3 +53,10 @@ Additional Changes:
 - Fixed filter-by-price warnings, added select5 pipe to select five random items from any array
 - Added patch request to the product service to keep database up to date with local files each time there are new sales generated
 - Game catId-genre idetifier got moved to models, as it is now used in two different components for filtering purposes
+
+  2022.11.10. - ver. 1.30
+
+- Added admin page with login functionality
+- Added full CRUD functionality to ProductService
+- Admin page displays all data from server, with options for adding new games, editing and deleting existing ones
+- Product-card carousel wip

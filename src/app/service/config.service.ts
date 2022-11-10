@@ -16,6 +16,7 @@ export class ConfigService {
     { text: 'Home', link: '/', icon: 'home' },
     { text: 'Featured', link: '/featured' },
     { text: 'Sales', link: '/sales' },
+    { text: 'Admin', link: '/admin' },
   ];
 
   constructor() {}
