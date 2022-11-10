@@ -1,9 +1,9 @@
 export const headers = [
   'catId',
   'name',
-  'info',
+  'description',
   'banner',
   'video',
   'price',
-  'discount',
+  'onSale',
 ];

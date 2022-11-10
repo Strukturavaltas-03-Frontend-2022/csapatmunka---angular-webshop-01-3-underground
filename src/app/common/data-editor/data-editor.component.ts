@@ -18,7 +18,15 @@ export class DataEditorComponent implements OnInit {
 
   isAuthenticated: boolean = false;
   isEditing: boolean = false;
+  isAddingNewGame: boolean = false;
+  isValid: boolean = false;
+  currentlyEditedGame: Product = new Product();
 
+  bannerRegExp = new RegExp(
+    '^' +
+      'https://firebasestorage.googleapis.com/v0/b/games-webshop.appspot.com/o',
+    'i'
+  );
   constructor(private productService: ProductService) {
     this.productService.fetchProducts().subscribe((games) => {
       this.gameList = [...games];
@@ -30,15 +38,19 @@ export class DataEditorComponent implements OnInit {
       Validators.required,
     ]),
     name: new FormControl({ value: '', disabled: true }, [Validators.required]),
-    info: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    description: new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
     banner: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.pattern(this.bannerRegExp),
     ]),
     price: new FormControl({ value: '', disabled: true }, [
       Validators.required,
     ]),
-    discount: new FormControl({ value: '', disabled: true }, [
+    onSale: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.max(50),
     ]),
     video: new FormControl({ value: '', disabled: true }, [
       Validators.required,
@@ -46,6 +58,15 @@ export class DataEditorComponent implements OnInit {
   });
 
   ngOnInit(): void {}
+
+  clearInputFields() {
+    Object.keys(this.edit.controls).forEach((key) => {
+      this.edit.controls[key].setValue('');
+      this.edit.controls[key].disable();
+    });
+    this.isValid = false;
+    this.isEditing = false;
+  }
 
   onAuthAttempt() {
     this.isAuthenticated = true;
@@ -56,22 +77,22 @@ export class DataEditorComponent implements OnInit {
   }
 
   onEditGame(game: Product) {
+    this.isValid = true;
+    this.currentlyEditedGame = game;
     Object.keys(this.edit.controls).forEach((key) => {
-      //this.edit.controls[key].setValue(game.id);
-
+      this.edit.controls[key].setValue(game[key]);
       this.edit.controls[key].enable();
-      console.log(this.edit.controls);
     });
 
-    this.edit.controls['name'].setValue(game.name);
-    this.edit.controls['info'].setValue(game.description);
-    this.edit.controls['banner'].setValue(game.banner);
-    this.edit.controls['video'].setValue(game.video);
-    this.edit.controls['price'].setValue(game.price);
-    this.edit.controls['discount'].setValue(game.onSale);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   onCancelEditingGame() {
+    this.isAddingNewGame = false;
+    this.isValid = false;
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].disable();
@@ -79,10 +100,55 @@ export class DataEditorComponent implements OnInit {
   }
 
   onAddNewGame() {
+    this.isAddingNewGame = true;
+    this.isValid = true;
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].enable();
     });
+  }
+
+  onUpdateGame() {
+    // New Game post request
+    if (this.isAddingNewGame === true) {
+      this.onSaveNewGame();
+    } // Edit Game patch request
+    else {
+      this.onSaveEditedGame();
+    }
+    this.clearInputFields();
+  }
+
+  onSaveNewGame() {
+    const uploadData: Product = new Product();
+    Object.keys(this.edit.controls).forEach((key) => {
+      uploadData[key] = this.edit.controls[key].value;
+      uploadData.id = this.gameList.length + 1;
+    });
+
+    window.scrollTo({
+      top: 5000,
+      behavior: 'smooth',
+    });
+
+    this.productService
+      .addProduct(uploadData)
+      .subscribe((addedGame) =>
+        console.log(`game was added successfully: ${addedGame}`)
+      );
+  }
+
+  onSaveEditedGame() {
+    const uploadData: Product = this.currentlyEditedGame;
+    Object.keys(this.edit.controls).forEach((key) => {
+      uploadData[key] = this.edit.controls[key].value;
+    });
+
+    this.productService
+      .updateSingleProduct(uploadData)
+      .subscribe((editedGame) =>
+        console.log(`editing game was successful: ${editedGame}`)
+      );
   }
 
   onDeleteGame(game: Product) {
