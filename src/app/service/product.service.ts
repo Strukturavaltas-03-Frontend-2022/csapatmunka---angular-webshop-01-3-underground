@@ -44,4 +44,14 @@ export class ProductService {
     });
     return this.http.patch(`${this.firebaseUrl}${this.entity}`, updatedObject);
   }
+
+  addProduct(newGame: Product) {
+    return this.http.post(`${this.firebaseUrl}${this.entity}`, newGame);
+  }
+
+  deleteProduct(game: Product) {
+    return this.http.delete(
+      `${this.firebaseUrl}${this.entity}/${game.uniqueId}`
+    );
+  }
 }
