@@ -36,7 +36,11 @@
             </td>
             <td>
               <div class="btn-group">
-                <button (click)="(true)" disabled class="btn btn-info">
+                <button
+                  (click)="onUpdateGame()"
+                  [disabled]="!isValid"
+                  class="btn btn-info"
+                >
                   <i class="fa fa-floppy-o" aria-hidden="true"></i></button
                 ><button
                   (click)="isEditing = !isEditing"
