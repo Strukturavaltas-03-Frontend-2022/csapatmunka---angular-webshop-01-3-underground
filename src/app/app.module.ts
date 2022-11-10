@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,10 @@ import { ProductCardComponent } from './common/product-card/product-card.compone
 import { ProductSliderComponent } from './common/product-slider/product-slider.component';
 import { ProductListComponent } from './common/product-list/product-list.component';
 import { Select5Pipe } from './pipes/select5.pipe';
+import { AdminComponent } from './page/admin/admin.component';
+import { DataEditorComponent } from './common/data-editor/data-editor.component';
+import { LoginComponent } from './common/login/login.component';
+import { CarouselComponent } from './util/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +47,18 @@ import { Select5Pipe } from './pipes/select5.pipe';
     ProductSliderComponent,
     ProductListComponent,
     Select5Pipe,
+    AdminComponent,
+    DataEditorComponent,
+    LoginComponent,
+    CarouselComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
