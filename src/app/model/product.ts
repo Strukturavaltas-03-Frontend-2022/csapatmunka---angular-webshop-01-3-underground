@@ -1,4 +1,5 @@
 export class Product {
+  [key: string]: any;
   uniqueId: string = '';
   id: number = 1;
   catId: number[] = [];

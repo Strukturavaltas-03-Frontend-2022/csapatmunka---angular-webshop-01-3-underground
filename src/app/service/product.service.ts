@@ -50,8 +50,13 @@ export class ProductService {
   }
 
   deleteProduct(game: Product) {
-    return this.http.delete(
-      `${this.firebaseUrl}${this.entity}/${game.uniqueId}`
+    return this.http.delete(`${this.firebaseUrl}games/${game.uniqueId}.json`);
+  }
+
+  updateSingleProduct(game: Product) {
+    return this.http.patch(
+      `${this.firebaseUrl}games/${game.uniqueId}.json`,
+      game
     );
   }
 }
