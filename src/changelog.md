@@ -72,3 +72,4 @@ Additional Changes
 - Cart badge and price updates on each product 'purchase'
 - Opening the cart allows the user the remove all items from the cart
 - Refined filter bar for better responsivity
+- Minor changes to shopping cart and filter visuals
