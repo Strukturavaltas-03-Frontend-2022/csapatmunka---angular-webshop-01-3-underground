@@ -1,0 +1,12 @@
+<div (click)="onOpenCart()" class="navbar-cart ml-auto">
+  <span class="cart-price mr-3">{{ shoppingCart.totalPrice.toFixed(2) }}€</span>
+  <span class="h3">🛒</span>
+  <span class="cart-badge">{{ shoppingCart.itemCount }}</span>
+</div>
+
+<div *ngIf="cartOpen" class="cart-content">
+  Empty cart
+  <button (click)="onEmptyCart()" class="btn btn-danger">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+  </button>
+</div>
