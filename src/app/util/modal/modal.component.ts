@@ -21,7 +21,6 @@ export class ModalComponent implements OnInit {
   @Input() currentGame: Product = new Product();
   genres = genres;
   shoppingCart: Cart = new Cart();
-  carouselModalPosition: string[] = ['0', '0'];
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
@@ -45,9 +44,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.url.subscribe((route) =>
-      route.length !== 0
-        ? (this.carouselModalPosition = ['-20%', '-395%'])
-        : (this.carouselModalPosition = ['0', '0'])
+      route.length !== 0 ? console.log('carousel') : console.log('home page')
     );
   }
 
