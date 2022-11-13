@@ -73,3 +73,7 @@ Additional Changes
 - Opening the cart allows the user the remove all items from the cart
 - Refined filter bar for better responsivity
 - Minor changes to shopping cart and filter visuals
+
+|2022.11.13. - ver. 1.35
+
+- Product-card carousel is added on "Featured"
