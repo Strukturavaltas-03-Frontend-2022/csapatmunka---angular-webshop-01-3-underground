@@ -1,7 +1,7 @@
 <section id="slider">
-  <input type="radio" name="slider" id="s1" />
+  <input type="radio" name="slider" id="s1" checked />
   <input type="radio" name="slider" id="s2" />
-  <input type="radio" name="slider" id="s3" checked />
+  <input type="radio" name="slider" id="s3" />
   <input type="radio" name="slider" id="s4" />
   <input type="radio" name="slider" id="s5" />
   <label
@@ -9,6 +9,6 @@
     for="s{{ i + 1 }}"
     id="slide{{ i + 1 }}"
   >
-    <app-product-card [game]="game"></app-product-card>
+    <app-product-card cardMargin="mx-0 my-0" [game]="game"></app-product-card>
   </label>
 </section>

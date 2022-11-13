@@ -9,9 +9,21 @@
   <span class="cart-badge">{{ shoppingCart.itemCount }}</span>
 </div>
 
-<div *ngIf="cartOpen" class="cart-content">
-  Empty cart
-  <button (click)="onEmptyCart()" class="btn btn-danger">
-    <i class="fa fa-trash" aria-hidden="true"></i>
-  </button>
+<div
+  *ngIf="cartOpen"
+  class="cart-content bg-dark d-flex flex-column justify-content-center align-items-start rounded"
+>
+  <p class="d-flex text-white" *ngFor="let game of shoppingCart.games">
+    <span class="mr-1"
+      ><img style="width: 50px" [src]="game.banner" alt="game banner"
+    /></span>
+    <span class="mr-1">{{ game.name }}</span>
+    <span class="mr-1">{{ game.price }}€</span>
+  </p>
+  <p class="text-white align-self-center">
+    Empty cart
+    <button (click)="onEmptyCart()" class="btn btn-primary">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+  </p>
 </div>

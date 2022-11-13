@@ -23,8 +23,7 @@ export class ShoppingCartComponent implements OnInit {
 
   onEmptyCart() {
     localStorage.clear();
-    this.shoppingCart.itemCount = 0;
-    this.shoppingCart.totalPrice = 0;
+    this.shoppingCart = new Cart();
     this.cartOpen = !this.cartOpen;
   }
 
@@ -36,6 +35,10 @@ export class ShoppingCartComponent implements OnInit {
       !cart.totalPrice
         ? (this.shoppingCart.totalPrice = 0)
         : (this.shoppingCart.totalPrice = cart.totalPrice);
+
+      !cart.games
+        ? (this.shoppingCart.games = [])
+        : (this.shoppingCart.games = [...cart.games]);
     });
   }
 }

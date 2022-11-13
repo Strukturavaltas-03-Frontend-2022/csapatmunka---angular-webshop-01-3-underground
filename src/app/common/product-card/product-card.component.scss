@@ -1,5 +1,6 @@
 .card {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border: none !important;
 }
 
 .card:hover {
@@ -10,9 +11,9 @@
   position: absolute;
   right: -20px;
   top: 10px;
-  background: red;
+  background: #007be6;
   text-align: center;
-  border-radius: 15px 15px;
+  border-radius: 15px 15px 15px 3px;
   color: white;
   padding: 5px 10px;
   font-size: 20px;
@@ -23,7 +24,7 @@
   position: absolute;
   right: 5px;
   bottom: 5px;
-  background: white;
+  background: rgba(255, 255, 255, 0);
   text-align: center;
   //border-radius: 0 0 0.8em 0;
   padding: 5px 5px;
@@ -33,6 +34,7 @@
 
 .info {
   cursor: pointer;
+  color: white;
 }
 
 @keyframes enlarge {
