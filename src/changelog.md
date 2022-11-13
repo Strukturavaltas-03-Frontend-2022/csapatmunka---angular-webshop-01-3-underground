@@ -65,3 +65,11 @@ Additional Changes
 
 - CRUD functionality linked to Admin table - admin can now add new games and delete, or update existing ones
 - Validation for create and update requests is WIP
+
+|2022.11.12. - ver. 1.35
+
+- Clicking product cards opens up a modal with detailed information and option to add selected item to cart
+- Cart badge and price updates on each product 'purchase'
+- Opening the cart allows the user the remove all items from the cart
+- Refined filter bar for better responsivity
+- Minor changes to shopping cart and filter visuals
