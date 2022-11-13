@@ -2,16 +2,9 @@
   Today's featured <b>{{ featuredGenreName }}</b> games
 </h3>
 
-<div class="container-fluid">
-  <div class="row d-flex justify-content-center">
-    <app-product-card
-      *ngFor="
-        let game of gameList | filterByGenre: [featuredGenreNumber] | select5
-      "
-      [game]="game"
-    ></app-product-card>
-  </div>
-</div>
+<app-carousel
+  [gameList]="gameList | filterByGenre: [featuredGenreNumber]"
+></app-carousel>
 
 <h3 class="my-3 text-center">
   All <b>{{ featuredGenreName }}</b> games
