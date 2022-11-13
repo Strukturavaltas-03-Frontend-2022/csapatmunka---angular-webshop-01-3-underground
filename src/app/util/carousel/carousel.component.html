@@ -5,16 +5,10 @@
   <input type="radio" name="slider" id="s4" />
   <input type="radio" name="slider" id="s5" />
   <label
-    *ngFor="let game of featuredGames | select5; index as i"
-    for="s{{ i }}"
-    id="slide{{ i }}"
+    *ngFor="let game of gameList | select5; index as i"
+    for="s{{ i + 1 }}"
+    id="slide{{ i + 1 }}"
   >
     <app-product-card [game]="game"></app-product-card>
   </label>
-  <!-- <label for="s2" id="slide2"> </label>
-  <label for="s3" id="slide3"> </label>
-  <label for="s4" id="slide4"> </label>
-  <label for="s5" id="slide5"> </label> -->
 </section>
-
-<app-product-card></app-product-card>
