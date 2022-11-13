@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ConfigService, IMenuItem } from '../service/config.service';
 
 @Component({
