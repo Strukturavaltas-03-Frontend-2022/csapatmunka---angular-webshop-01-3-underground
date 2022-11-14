@@ -1,13 +1,13 @@
-<h3 class="my-3 text-center">
-  Today's featured <b>{{ featuredGenreName }}</b> games
+<h3 class="pt-5 text-center text-white">
+  Today's featured <b class="text-primary">{{ featuredGenreName }}</b> games
 </h3>
 
 <app-carousel
   [gameList]="gameList | filterByGenre: [featuredGenreNumber]"
 ></app-carousel>
 
-<h3 class="my-3 text-center">
-  All <b>{{ featuredGenreName }}</b> games
+<h3 class="pb-5 text-center text-white">
+  All <b class="text-primary">{{ featuredGenreName }}</b> games
 </h3>
 
 <div class="container-fluid">
@@ -15,6 +15,7 @@
     <app-product-card
       *ngFor="let game of gameList | filterByGenre: [featuredGenreNumber]"
       [game]="game"
+      cardMargin="mx-3 my-3"
     ></app-product-card>
   </div>
 </div>

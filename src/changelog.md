@@ -77,3 +77,11 @@ Additional Changes
 |2022.11.13. - ver. 1.35
 
 - Product-card carousel is added on "Featured"
+- Changed visuals all around the site, lots of visual and logical micro-management
+- Product cart now displays all added items
+- Carousel modal positioning is WIP
+
+|2022.11.14. - ver. 1.40
+
+- Sales page now features 3 random genres with max 5 of the top discounted games in that genre
+- Discounts are now kept between components, only refreshes every 5 minutes

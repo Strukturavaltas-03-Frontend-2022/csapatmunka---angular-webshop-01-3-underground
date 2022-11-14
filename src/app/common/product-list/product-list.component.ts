@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Cart } from 'src/app/model/cart';
 import { Product } from 'src/app/model/product';
-import { ProductService } from 'src/app/service/product.service';
+import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
 
 @Component({
   selector: 'app-product-list',
@@ -17,20 +16,11 @@ export class ProductListComponent implements OnInit {
   @Input() priceRanges: string[] = [];
   @Input() searchString: string = '';
 
-  constructor(private productService: ProductService) {}
+  constructor(private discountGameListService: DiscountGameListService) {}
 
-  ngOnInit(): void {
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-      this.productService.calculatingFlashSales(this.gameList);
+  ngOnInit(): void {}
 
-      this.productService
-        .updateProducts(this.gameList)
-        .subscribe((games) => console.log('games loaded'));
-    });
-
-    setInterval(() => {
-      this.productService.calculatingFlashSales(this.gameList);
-    }, 300000);
+  ngDoCheck(): void {
+    this.gameList = this.discountGameListService.getGameList();
   }
 }

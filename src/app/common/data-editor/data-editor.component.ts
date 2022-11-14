@@ -127,7 +127,7 @@ export class DataEditorComponent implements OnInit {
     });
 
     window.scrollTo({
-      top: 5000,
+      top: 50000,
       behavior: 'smooth',
     });
 
