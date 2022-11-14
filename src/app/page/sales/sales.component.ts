@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { throws } from 'assert';
+import { genres } from 'src/app/model/genres';
 import { Product } from 'src/app/model/product';
-import { ProductService } from 'src/app/service/product.service';
+import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
 
 @Component({
   selector: 'app-sales',
@@ -8,63 +10,33 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
-  gameList: Product[] = [];
-  featuredGamesList: Product[] = [];
-  featuredGames: Product[] = [];
-  featuredGamesOnSale: Product[] = [];
+  discountGameList: Product[] = [];
+  featuredGenreNumbers: number[] = [];
+  featuredGenreNames: string[] = [];
+  genres = genres;
 
-  isHovered: boolean[] = new Array(100).fill(false);
-
-  constructor(private productService: ProductService) {}
+  constructor(private discountGameListService: DiscountGameListService) {}
 
   ngOnInit(): void {
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-
-      this.switchFeatured(this.gameList);
-      this.chooseFeatured(this.featuredGamesList);
-      this.chooseFeaturedOnSale(this.featuredGamesList);
-    });
+    this.discountGameList = this.discountGameListService
+      .getGameList()
+      .filter((game) => game.onSale !== 0 && game.price !== 0);
+    this.generate3UniqueRandomGenres();
   }
 
-  switchFeatured(list: Product[]): Product[] {
-    list.forEach((game) => {
-      if (game.featured === false) {
-        if (Math.random() > 0.6) {
-          game.featured = true;
-        } else {
-          game.featured = false;
-        }
-      } else {
-        game.featured = false;
+  generate3UniqueRandomGenres() {
+    while (this.featuredGenreNumbers.length < 3) {
+      let random = Math.floor(Math.random() * 16 + 1);
+      if (
+        !this.featuredGenreNumbers.includes(random) &&
+        this.discountGameList.some((game) => game.catId.includes(random))
+      ) {
+        this.featuredGenreNumbers.push(random);
       }
-      if (game.featured === true) {
-        this.featuredGamesList.push(game);
-      }
+    }
+
+    this.featuredGenreNumbers.forEach((genre) => {
+      this.featuredGenreNames.push(genres[genre - 1].name);
     });
-    return this.featuredGamesList;
-  }
-
-  chooseFeatured(list: Product[]): Product[] {
-    let randomArray = [...list]
-      .sort(() => 0.5 - Math.random())
-      .filter((el) => el.onSale === 0);
-    this.featuredGames = randomArray.slice(0, 5);
-    return this.featuredGames;
-  }
-
-  chooseFeaturedOnSale(list: Product[]): Product[] {
-    let gamesWithPrice = list.filter((el) => el.price !== 0);
-    let randomArray = gamesWithPrice
-      .sort(() => 0.5 - Math.random())
-      .filter((el) => el.onSale !== 0);
-    this.featuredGamesOnSale = randomArray.slice(0, 5);
-    return this.featuredGamesOnSale;
-  }
-
-  onHoverGame(index: number) {
-    this.isHovered[index] === false
-      ? (this.isHovered[index] = true)
-      : (this.isHovered[index] = false);
   }
 }
