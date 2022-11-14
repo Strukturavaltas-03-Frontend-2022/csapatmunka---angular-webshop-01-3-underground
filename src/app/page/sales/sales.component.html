@@ -1,4 +1,4 @@
-<div *ngFor="let featured of featuredGenreNames; let i = index">
+<div class="pb-5" *ngFor="let featured of featuredGenreNames; let i = index">
   <h3 class="py-5 text-center text-white">
     Top sales in
     <b class="text-primary">{{ featured }}</b> games
@@ -13,7 +13,7 @@
             | topSale: 5
         "
         [game]="game"
-        cardMargin="mx-1"
+        cardMargin="mx-1 my-3"
       >
       </app-product-card>
     </div>

@@ -85,3 +85,8 @@ Additional Changes
 
 - Sales page now features 3 random genres with max 5 of the top discounted games in that genre
 - Discounts are now kept between components, only refreshes every 5 minutes
+
+Additional changes
+
+- Card carousel optimized
+- Minor visual changes
