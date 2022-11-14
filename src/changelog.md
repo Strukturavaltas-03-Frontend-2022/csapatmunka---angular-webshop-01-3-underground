@@ -90,3 +90,4 @@ Additional changes
 
 - Card carousel optimized
 - Minor visual changes
+- Added sort by headers to Admin table

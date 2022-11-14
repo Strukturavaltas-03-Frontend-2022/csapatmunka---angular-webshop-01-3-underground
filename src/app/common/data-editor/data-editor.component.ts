@@ -14,6 +14,9 @@ export class DataEditorComponent implements OnInit {
   gameList: Product[] = [];
   headers: string[] = headers;
 
+  searchHeader: string = '';
+  isSorted: boolean = true;
+
   @Input() userName: string = '';
 
   isAuthenticated: boolean = false;
@@ -157,5 +160,15 @@ export class DataEditorComponent implements OnInit {
         this.gameList = [...games];
       });
     });
+  }
+
+  onSortById() {
+    this.searchHeader = 'id';
+    this.isSorted = !this.isSorted;
+  }
+
+  onSortByHead(head: string) {
+    this.searchHeader = head;
+    this.isSorted = !this.isSorted;
   }
 }
