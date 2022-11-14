@@ -1,3 +1,13 @@
 body {
   overflow-x: hidden;
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.storeBackground {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: url(./assets/img/bg_bubble_pattern.png), #6c757d;
+}

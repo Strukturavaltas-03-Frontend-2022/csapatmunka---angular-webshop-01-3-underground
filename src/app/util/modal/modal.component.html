@@ -1,21 +1,26 @@
-<div class="" tabindex="-1" role="dialog">
+<div class="modal-game" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content bg-dark">
+      <div class="modal-header text-white">
         <h5 class="modal-title">{{ currentGame.name }}</h5>
         <button
           type="button"
-          class="close"
+          class="close text-white"
           data-dismiss="modal"
           aria-label="Close"
+          (click)="onCloseModal()"
         >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-white">
         <img [src]="currentGame.banner" alt="game banner" class="w-100" />
-        <p><b>About the game: </b> {{ currentGame.description }}</p>
+        <p class="mt-2">
+          <b class="text-primary">About the game: </b>
+          {{ currentGame.description }}
+        </p>
         <p>
+          <b class="text-primary">Price: </b>
           <span *ngIf="currentGame.onSale !== 0 && currentGame.price !== 0"
             ><s style="color: red">
               Original price:
@@ -25,16 +30,27 @@
 
           {{ currentGame.price | currency }}
         </p>
+        <p>
+          <b class="text-primary">Genres: </b>
+          <span *ngFor="let catId of currentGame.catId">
+            [{{ genres[catId - 1].name }}]
+          </span>
+        </p>
       </div>
       <div class="modal-footer">
         <button
-          (click)="onAddCart(currentGame.price)"
+          (click)="onAddCart(currentGame)"
           type="button"
-          class="btn btn-dark text-white"
+          class="btn btn-primary text-white"
         >
           Add To Cart 🛒
         </button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button
+          (click)="onCloseModal()"
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
           Close
         </button>
       </div>

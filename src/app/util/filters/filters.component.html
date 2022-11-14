@@ -1,8 +1,10 @@
-<div class="row">
-  <div class="col-6 mx-auto d-flex justify-content-around alig-items-center">
-    <div class="dropdown mx-5">
+<div class="row py-5">
+  <div
+    class="col-lg-12 col-sm-12 mx-auto my-auto d-flex flex-lg-row flex-column align-items-center justify-content-center"
+  >
+    <div class="dropdown mx-lg-5 my-sm-2">
       <button
-        class="btn btn-secondary dropdown-toggle"
+        class="btn btn-dark dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
         data-toggle="dropdown"
@@ -11,17 +13,17 @@
       >
         Filter by genre
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <label *ngFor="let genre of genres" class="dropdown-item">
+      <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+        <label *ngFor="let genre of genres" class="dropdown-item text-white">
           <input (change)="onGenreChange(genre.id)" type="checkbox" />
           {{ genre.name }}
         </label>
       </div>
     </div>
 
-    <div class="dropdown mx-5">
+    <div class="dropdown mx-lg-5 my-sm-2">
       <button
-        class="btn btn-secondary dropdown-toggle"
+        class="btn btn-dark dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
         data-toggle="dropdown"
@@ -30,31 +32,49 @@
       >
         Filter by price
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <label class="dropdown-item">
+      <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+        <label class="dropdown-item text-white">
           <input (click)="onPriceRangeChange('low')" type="checkbox" /> &lt;5€
         </label>
-        <label class="dropdown-item">
+        <label class="dropdown-item text-white">
           <input (click)="onPriceRangeChange('mid')" type="checkbox" /> 5-15€
         </label>
-        <label class="dropdown-item">
+        <label class="dropdown-item text-white">
           <input (click)="onPriceRangeChange('high')" type="checkbox" /> &gt;15€
         </label>
       </div>
     </div>
-    <label class="mx-5">
+    <label class="mx-lg-5 my-sm-2 text-white bg-dark p-2 rounded">
       <input type="checkbox" (click)="toggleDiscounted()" /> On-Sale
     </label>
-    <label class="mx-5">
+    <label class="mx-lg-5 my-sm-2 text-white bg-dark p-2 rounded">
       <input type="checkbox" (click)="toggleF2P()" /> Free to Play
     </label>
 
-    <input
-      class="form-control mx-5 w-25"
+    <div class="input-group d-flex mx-lg-5 my-sm-2 w-25">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchKey"
+        (keyup)="onTitleSearch()"
+        aria-label="search word"
+        aria-describedby="searchkey"
+      />
+      <div class="input-group-append">
+        <span
+          class="input-group-text bg-dark text-white border-0"
+          id="searchkey"
+          >Search for game title</span
+        >
+      </div>
+    </div>
+
+    <!--<input
+      class="form-control mx-lg-5 my-md-2 w-25"
       placeholder="Search for game title"
       type="textarea"
       [(ngModel)]="searchKey"
       (keyup)="onTitleSearch()"
-    />
+    />-->
   </div>
 </div>

@@ -26,6 +26,8 @@ import { AdminComponent } from './page/admin/admin.component';
 import { DataEditorComponent } from './common/data-editor/data-editor.component';
 import { LoginComponent } from './common/login/login.component';
 import { CarouselComponent } from './util/carousel/carousel.component';
+import { ShoppingCartComponent } from './util/shopping-cart/shopping-cart.component';
+import { TopSalePipe } from './pipes/top-sale.pipe';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { CarouselComponent } from './util/carousel/carousel.component';
     DataEditorComponent,
     LoginComponent,
     CarouselComponent,
+    ShoppingCartComponent,
+    TopSalePipe,
   ],
   imports: [
     BrowserModule,
