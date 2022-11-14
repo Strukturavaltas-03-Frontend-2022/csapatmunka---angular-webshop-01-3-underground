@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { genres } from 'src/app/model/genres';
 import { Product } from 'src/app/model/product';
-import { ProductService } from 'src/app/service/product.service';
+import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
 
 @Component({
   selector: 'app-product-slider',
@@ -14,13 +14,11 @@ export class ProductSliderComponent implements OnInit {
   featuredGenreName: string = '';
   featuredGenreNumber: number = 0;
 
-  constructor(private productService: ProductService) {}
+  constructor(private discountGameListService: DiscountGameListService) {}
 
   ngOnInit(): void {
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-      this.selectingFeaturedGenre();
-    });
+    this.gameList = this.discountGameListService.getGameList();
+    this.selectingFeaturedGenre();
   }
 
   selectingFeaturedGenre() {
