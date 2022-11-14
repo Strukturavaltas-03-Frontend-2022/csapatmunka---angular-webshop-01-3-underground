@@ -6,9 +6,8 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.bgtest {
+.storeBackground {
   min-height: 100vh;
   min-width: 100vw;
-  background-image: url(./assets/img/1062_3.png),
-    linear-gradient(to bottom right, #6c757d, #6c757d);
+  background: url(./assets/img/bg_bubble_pattern.png), #6c757d;
 }

@@ -1,14 +1,18 @@
-<section id="slider">
-  <input type="radio" name="slider" id="s1" checked />
-  <input type="radio" name="slider" id="s2" />
-  <input type="radio" name="slider" id="s3" />
-  <input type="radio" name="slider" id="s4" />
-  <input type="radio" name="slider" id="s5" />
-  <label
-    *ngFor="let game of gameList | select5; index as i"
-    for="s{{ i + 1 }}"
-    id="slide{{ i + 1 }}"
-  >
-    <app-product-card cardMargin="mx-0 my-0" [game]="game"></app-product-card>
-  </label>
-</section>
+<div
+  class="carousel-container d-flex mx-auto justify-content-center align-items-center"
+>
+  <section id="slider">
+    <input type="radio" name="slider" id="s1" checked />
+    <input type="radio" name="slider" id="s2" />
+    <input type="radio" name="slider" id="s3" />
+    <input type="radio" name="slider" id="s4" />
+    <input type="radio" name="slider" id="s5" />
+    <label
+      *ngFor="let game of gameList | select5; index as i"
+      for="s{{ i + 1 }}"
+      id="slide{{ i + 1 }}"
+    >
+      <app-product-card cardMargin="mx-0 my-0" [game]="game"></app-product-card>
+    </label>
+  </section>
+</div>
