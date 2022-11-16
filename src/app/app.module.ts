@@ -28,6 +28,7 @@ import { LoginComponent } from './common/login/login.component';
 import { CarouselComponent } from './util/carousel/carousel.component';
 import { ShoppingCartComponent } from './util/shopping-cart/shopping-cart.component';
 import { TopSalePipe } from './pipes/top-sale.pipe';
+import { SortByHeaderPipe } from './pipes/sort-by-header.pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { TopSalePipe } from './pipes/top-sale.pipe';
     CarouselComponent,
     ShoppingCartComponent,
     TopSalePipe,
+    SortByHeaderPipe,
   ],
   imports: [
     BrowserModule,
