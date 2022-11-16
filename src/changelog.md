@@ -96,3 +96,4 @@ Additional changes
 
 - Added input validation for Admin table
 - Added, edited, deleted games directly affect game cards now
+- Minor bugfix with shopping cart
