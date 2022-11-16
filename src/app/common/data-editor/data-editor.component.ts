@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/service/product.service';
 
 import { headers } from 'src/app/model/headers';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
 
 @Component({
   selector: 'app-data-editor',
@@ -12,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DataEditorComponent implements OnInit {
   gameList: Product[] = [];
-  headers: string[] = headers;
+  headers = headers;
 
   searchHeader: string = '';
   isSorted: boolean = true;
@@ -30,15 +31,20 @@ export class DataEditorComponent implements OnInit {
       'https://firebasestorage.googleapis.com/v0/b/games-webshop.appspot.com/o',
     'i'
   );
-  constructor(private productService: ProductService) {
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-    });
+
+  catIdRegExp = new RegExp(/^(([1-9]|([1][0-6])),)*([1-9]|([1][0-6]))$/);
+
+  constructor(
+    private productService: ProductService,
+    private discountGameListService: DiscountGameListService
+  ) {
+    this.gameList = this.discountGameListService.getGameList();
   }
 
   edit: FormGroup = new FormGroup({
     catId: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.pattern(this.catIdRegExp),
     ]),
     name: new FormControl({ value: '', disabled: true }, [Validators.required]),
     description: new FormControl({ value: '', disabled: true }, [
@@ -50,6 +56,7 @@ export class DataEditorComponent implements OnInit {
     ]),
     price: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.max(60),
     ]),
     onSale: new FormControl({ value: '', disabled: true }, [
       Validators.required,
@@ -104,7 +111,8 @@ export class DataEditorComponent implements OnInit {
 
   onAddNewGame() {
     this.isAddingNewGame = true;
-    this.isValid = true;
+    if (this.edit.valid) this.isValid = true;
+
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].enable();
@@ -120,6 +128,7 @@ export class DataEditorComponent implements OnInit {
       this.onSaveEditedGame();
     }
     this.clearInputFields();
+    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSaveNewGame() {
@@ -160,6 +169,7 @@ export class DataEditorComponent implements OnInit {
         this.gameList = [...games];
       });
     });
+    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSortById() {

@@ -91,3 +91,8 @@ Additional changes
 - Card carousel optimized
 - Minor visual changes
 - Added sort by headers to Admin table
+
+|2022.11.16. - ver. 1.40
+
+- Added input validation for Admin table
+- Added, edited, deleted games directly affect game cards now

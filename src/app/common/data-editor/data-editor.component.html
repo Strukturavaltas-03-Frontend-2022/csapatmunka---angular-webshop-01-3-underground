@@ -16,10 +16,10 @@
             <th (click)="onSortById()" class="clickHead">#</th>
             <th
               class="clickHead"
-              (click)="onSortByHead(head)"
+              (click)="onSortByHead(head.name)"
               *ngFor="let head of headers"
             >
-              {{ head }}
+              {{ head.name }}
             </th>
             <th>Edit</th>
           </thead>
@@ -37,12 +37,24 @@
               </td>
               <td [formGroup]="edit" *ngFor="let head of headers">
                 <input
-                  formControlName="{{ head }}"
+                  formControlName="{{ head.name }}"
                   class="form-control"
                   type="text"
-                  placeholder="{{ head }}"
+                  placeholder="{{ head.label }}"
                 />
+                <small
+                  style="color: red"
+                  *ngIf="
+                    (!edit.controls[head.name].pristine ||
+                      edit.controls[head.name].touched) &&
+                    edit.controls[head.name].invalid
+                  "
+                  class="error"
+                >
+                  {{ head.error }}
+                </small>
               </td>
+
               <td>
                 <div class="btn-group">
                   <button
