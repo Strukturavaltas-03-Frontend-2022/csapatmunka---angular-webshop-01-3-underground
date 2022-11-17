@@ -4,6 +4,8 @@ import { ProductService } from 'src/app/service/product.service';
 
 import { headers } from 'src/app/model/headers';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
+import { throws } from 'assert';
 
 @Component({
   selector: 'app-data-editor',
@@ -12,7 +14,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DataEditorComponent implements OnInit {
   gameList: Product[] = [];
-  headers: string[] = headers;
+  headers = headers;
+
+  searchHeader: string = '';
+  isSorted: boolean = true;
 
   @Input() userName: string = '';
 
@@ -22,20 +27,34 @@ export class DataEditorComponent implements OnInit {
   isValid: boolean = false;
   currentlyEditedGame: Product = new Product();
 
+  allPages: number = 0;
+  currentPage: number = 1;
+  pageIterator: Array<{ pageNum: number; clicked: boolean }> = [];
+  sliceEnd: number = 10;
+
   bannerRegExp = new RegExp(
     '^' +
       'https://firebasestorage.googleapis.com/v0/b/games-webshop.appspot.com/o',
     'i'
   );
-  constructor(private productService: ProductService) {
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-    });
+
+  catIdRegExp = new RegExp(/^(([1-9]|([1][0-6])),)*([1-9]|([1][0-6]))$/);
+
+  constructor(
+    private productService: ProductService,
+    private discountGameListService: DiscountGameListService
+  ) {
+    this.gameList = this.discountGameListService.getGameList();
+    this.allPages = Math.ceil(this.gameList.length / 10);
+    for (let i = 0; i < this.allPages; i++)
+      this.pageIterator.push({ pageNum: i + 1, clicked: false });
+    this.pageIterator[0].clicked = true;
   }
 
   edit: FormGroup = new FormGroup({
     catId: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.pattern(this.catIdRegExp),
     ]),
     name: new FormControl({ value: '', disabled: true }, [Validators.required]),
     description: new FormControl({ value: '', disabled: true }, [
@@ -47,6 +66,7 @@ export class DataEditorComponent implements OnInit {
     ]),
     price: new FormControl({ value: '', disabled: true }, [
       Validators.required,
+      Validators.max(60),
     ]),
     onSale: new FormControl({ value: '', disabled: true }, [
       Validators.required,
@@ -101,7 +121,8 @@ export class DataEditorComponent implements OnInit {
 
   onAddNewGame() {
     this.isAddingNewGame = true;
-    this.isValid = true;
+    if (this.edit.valid) this.isValid = true;
+
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].enable();
@@ -117,6 +138,7 @@ export class DataEditorComponent implements OnInit {
       this.onSaveEditedGame();
     }
     this.clearInputFields();
+    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSaveNewGame() {
@@ -157,5 +179,72 @@ export class DataEditorComponent implements OnInit {
         this.gameList = [...games];
       });
     });
+    this.discountGameListService.setGameList(this.gameList);
+  }
+
+  onSortById() {
+    this.searchHeader = 'id';
+    this.isSorted = !this.isSorted;
+  }
+
+  onSortByHead(head: string) {
+    this.searchHeader = head;
+    this.isSorted = !this.isSorted;
+  }
+
+  // filtering -----------------------------------------
+  genreParams: number[] = [];
+  saleChecker: boolean = false;
+  freeChecker: boolean = false;
+  priceRanges: string[] = [];
+  searchString: string = '';
+
+  genreUpdates(params: number[]): void {
+    this.genreParams = [...params];
+  }
+
+  saleChkbxUpdates(param: boolean): void {
+    this.saleChecker = param;
+  }
+
+  f2pChkbxUpdates(param: boolean): void {
+    this.freeChecker = param;
+  }
+
+  priceUpdates(params: string[]): void {
+    this.priceRanges = [...params];
+  }
+
+  titleUpdates(param: string) {
+    this.searchString = param;
+  }
+
+  // pagination -----------------------------------------
+  onPageClick(page: { pageNum: number; clicked: boolean }) {
+    this.currentPage = page.pageNum;
+    this.sliceEnd = page.pageNum * 10;
+    this.pageIterator.forEach((page) => (page.clicked = false));
+    page.clicked = true;
+  }
+
+  onArrowClick(direction: string) {
+    switch (direction) {
+      case '-':
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.pageIterator.forEach((pages) => (pages.clicked = false));
+          this.pageIterator[this.currentPage - 1].clicked = true;
+          this.sliceEnd = this.currentPage * 10;
+        }
+        break;
+      case '+':
+        if (this.currentPage < this.allPages) {
+          this.currentPage++;
+          this.pageIterator.forEach((pages) => (pages.clicked = false));
+          this.pageIterator[this.currentPage - 1].clicked = true;
+          this.sliceEnd = this.currentPage * 10;
+        }
+        break;
+    }
   }
 }

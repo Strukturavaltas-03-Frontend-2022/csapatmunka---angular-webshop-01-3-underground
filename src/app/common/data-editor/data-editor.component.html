@@ -8,84 +8,161 @@
   <h3 class="py-3 text-center text-white">
     Welcome back <b class="text-primary">{{ userName }}</b>
   </h3>
-  <div class="row">
-    <div class="col-12">
-      <table class="table table-striped table-dark table-hover">
-        <thead>
-          <th>#</th>
-          <th *ngFor="let head of headers">{{ head }}</th>
-          <th>Edit</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <button
-                class="btn btn-success"
-                (click)="isEditing = !isEditing"
-                (click)="onAddNewGame()"
-                [disabled]="isEditing"
-              >
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </button>
-            </td>
-            <td [formGroup]="edit" *ngFor="let head of headers">
-              <input
-                formControlName="{{ head }}"
-                class="form-control"
-                type="text"
-                placeholder="{{ head }}"
-              />
-            </td>
-            <td>
-              <div class="btn-group">
+  <app-filters
+    (genreChange)="genreUpdates($event)"
+    (saleChkbxChange)="saleChkbxUpdates($event)"
+    (priceRangeChange)="priceUpdates($event)"
+    (keywordChange)="titleUpdates($event)"
+    (f2pChkbxChange)="f2pChkbxUpdates($event)"
+  ></app-filters>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-striped table-dark table-hover">
+          <thead>
+            <th (click)="onSortById()" class="clickHead">#</th>
+            <th
+              class="clickHead"
+              (click)="onSortByHead(head.name)"
+              *ngFor="let head of headers"
+            >
+              {{ head.name }}
+            </th>
+            <th>Edit</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
                 <button
-                  (click)="onUpdateGame()"
-                  [disabled]="!isValid"
-                  class="btn btn-info"
-                >
-                  <i class="fa fa-floppy-o" aria-hidden="true"></i></button
-                ><button
+                  class="btn btn-success"
                   (click)="isEditing = !isEditing"
-                  (click)="onCancelEditingGame()"
-                  [disabled]="!isEditing"
-                  class="btn btn-secondary"
+                  (click)="onAddNewGame()"
+                  [disabled]="isEditing"
                 >
-                  <i class="fa fa-ban" aria-hidden="true"></i>
+                  <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
-              </div>
-            </td>
-          </tr>
-          <tr *ngFor="let game of gameList">
-            <td>{{ game.id }}</td>
-            <td>{{ game.catId }}</td>
-            <td>{{ game.name }}</td>
-            <td>{{ game.description }}</td>
-            <td>{{ game.banner }}</td>
-            <td>{{ game.video }}</td>
-            <td>{{ game.price }}</td>
-            <td>{{ game.onSale }}</td>
+              </td>
+              <td [formGroup]="edit" *ngFor="let head of headers">
+                <input
+                  formControlName="{{ head.name }}"
+                  class="form-control"
+                  type="text"
+                  placeholder="{{ head.label }}"
+                />
+                <small
+                  style="color: red"
+                  *ngIf="
+                    (!edit.controls[head.name].pristine ||
+                      edit.controls[head.name].touched) &&
+                    edit.controls[head.name].invalid
+                  "
+                  class="error"
+                >
+                  {{ head.error }}
+                </small>
+              </td>
 
-            <td>
-              <div class="btn-group">
-                <button
-                  (click)="isEditing = !isEditing"
-                  (click)="onEditGame(game)"
-                  [disabled]="isEditing"
-                  class="btn btn-warning"
-                >
-                  <i class="fa fa-pencil" aria-hidden="true"></i></button
-                ><button
-                  (click)="onDeleteGame(game)"
-                  [disabled]="isEditing"
-                  class="btn btn-danger"
-                >
-                  <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td>
+                <div class="btn-group">
+                  <button
+                    (click)="onUpdateGame()"
+                    [disabled]="!isValid"
+                    class="btn btn-info"
+                  >
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i></button
+                  ><button
+                    (click)="isEditing = !isEditing"
+                    (click)="onCancelEditingGame()"
+                    [disabled]="!isEditing"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              *ngFor="
+                let game of gameList
+                  | slice: sliceEnd - 10:sliceEnd
+                  | filterByGenre: genreParams
+                  | filterByDiscount: saleChecker
+                  | filterByF2p: freeChecker
+                  | filterByPrice: priceRanges
+                  | filterByTitle: searchString
+                  | sortByHeader: isSorted:searchHeader
+              "
+            >
+              <td>{{ game.id }}</td>
+              <td>{{ game.catId }}</td>
+              <td>{{ game.name }}</td>
+              <td>{{ game.description }}</td>
+              <td>{{ game.banner }}</td>
+              <td>{{ game.video }}</td>
+              <td>{{ game.price }}</td>
+              <td>{{ game.onSale }}</td>
+
+              <td>
+                <div class="btn-group">
+                  <button
+                    (click)="isEditing = !isEditing"
+                    (click)="onEditGame(game)"
+                    [disabled]="isEditing"
+                    class="btn btn-warning"
+                  >
+                    <i class="fa fa-pencil" aria-hidden="true"></i></button
+                  ><button
+                    (click)="onDeleteGame(game)"
+                    [disabled]="isEditing"
+                    class="btn btn-danger"
+                  >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li (click)="onArrowClick('-')" class="page-item">
+              <a
+                class="page-link bg-primary text-white border-secondary"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li
+              *ngFor="let page of pageIterator"
+              class="page-item"
+              (click)="onPageClick(page)"
+            >
+              <a
+                [ngClass]="
+                  page.clicked === true ? 'text-warning' : 'text-white'
+                "
+                class="page-link bg-dark border-secondary"
+              >
+                {{ page.pageNum }}
+              </a>
+            </li>
+
+            <li (click)="onArrowClick('+')" class="page-item">
+              <a
+                class="page-link bg-primary text-white border-secondary"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </div>

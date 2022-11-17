@@ -25,6 +25,7 @@ export class ShoppingCartComponent implements OnInit {
     localStorage.clear();
     this.shoppingCart = new Cart();
     this.cartOpen = !this.cartOpen;
+    this.storageService.setItem('shoppingCart', this.shoppingCart);
   }
 
   badgeUpdate() {
