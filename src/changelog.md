@@ -97,3 +97,8 @@ Additional changes
 - Added input validation for Admin table
 - Added, edited, deleted games directly affect game cards now
 - Minor bugfix with shopping cart
+
+|2022.11.17. - ver. 1.40
+
+- Added pagination to Admin table with 10 products/page
+- Added all filtering options to Admin table

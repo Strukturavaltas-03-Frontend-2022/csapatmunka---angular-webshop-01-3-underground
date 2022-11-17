@@ -8,6 +8,13 @@
   <h3 class="py-3 text-center text-white">
     Welcome back <b class="text-primary">{{ userName }}</b>
   </h3>
+  <app-filters
+    (genreChange)="genreUpdates($event)"
+    (saleChkbxChange)="saleChkbxUpdates($event)"
+    (priceRangeChange)="priceUpdates($event)"
+    (keywordChange)="titleUpdates($event)"
+    (f2pChkbxChange)="f2pChkbxUpdates($event)"
+  ></app-filters>
   <div class="container-fluid">
     <div class="row">
       <div class="table-responsive">
@@ -76,7 +83,14 @@
             </tr>
             <tr
               *ngFor="
-                let game of gameList | sortByHeader: isSorted:searchHeader
+                let game of gameList
+                  | slice: sliceEnd - 10:sliceEnd
+                  | filterByGenre: genreParams
+                  | filterByDiscount: saleChecker
+                  | filterByF2p: freeChecker
+                  | filterByPrice: priceRanges
+                  | filterByTitle: searchString
+                  | sortByHeader: isSorted:searchHeader
               "
             >
               <td>{{ game.id }}</td>
@@ -109,6 +123,45 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="col-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li (click)="onArrowClick('-')" class="page-item">
+              <a
+                class="page-link bg-primary text-white border-secondary"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li
+              *ngFor="let page of pageIterator"
+              class="page-item"
+              (click)="onPageClick(page)"
+            >
+              <a
+                [ngClass]="
+                  page.clicked === true ? 'text-warning' : 'text-white'
+                "
+                class="page-link bg-dark border-secondary"
+              >
+                {{ page.pageNum }}
+              </a>
+            </li>
+
+            <li (click)="onArrowClick('+')" class="page-item">
+              <a
+                class="page-link bg-primary text-white border-secondary"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
