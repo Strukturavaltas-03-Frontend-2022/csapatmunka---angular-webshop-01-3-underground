@@ -102,3 +102,15 @@ Additional changes
 
 - Added pagination to Admin table with 10 products/page
 - Added all filtering options to Admin table
+
+Short documentation of this application:
+
+This mini demo webshop is hosting a video game library with 100 popular titles within the gaming community. Backend solution is realized with the use of a Firebase realtime database with an additional storage for the banner images.
+
+On the 'Home' page every game card has a banner image displayed with the most important information below such as game title and price, in case of an ongoing sale, discount price. All cards have an extra hovering action which starts playing a short video loop. At initialization and every 5 minutes there are random flash sales occuring, that are also visibly displayed on badges. The cards also host a small arrow icon in the bottom right corner which navigates the user to a modal window with detailed information of the selected game and option to add it to the shopping cart. The shopping cart is added on the top right corner of the page in the navbar section. It features a price tracker and a mini badge with an item counter that represents games currently added to the cart. Opening the cart lets the user see which products they had previously added, listed with banners, titles and prices. The empty cart button can be used to delete all products from the cart. The page also has a multi filter with options to narrow down the game list by genres, prices, free games, discounts and title search.
+
+The 'Featured' page hosts (max.) 5 randomly selected game in a stacked card carousel from a randomly generated game genre, and then displays the rest of the games in said category below.
+
+Opening the 'Sales' page randomly chooses 3 of the game categories with at least one in each currently being discounted and displays maximum 5 of them in a descending order starting from the greatest discount.
+
+The 'Admin' page requires the user to login first in order to access the administrative table that lets them access the database, add new games or edit, delete existing ones. This tab features a pagination component with 10 games per page, with the same filtering options as on the home page. Each input field has unique validation and error messages displayed in case of invalid input. All CRUD funtionality is directly affecting the game information on all pages.
