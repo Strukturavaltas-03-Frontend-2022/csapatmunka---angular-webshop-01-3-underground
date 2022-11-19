@@ -5,7 +5,6 @@ import { ProductService } from 'src/app/service/product.service';
 import { headers } from 'src/app/model/headers';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DiscountGameListService } from 'src/app/service/discount-game-list.service';
-import { throws } from 'assert';
 
 @Component({
   selector: 'app-data-editor',
@@ -31,6 +30,8 @@ export class DataEditorComponent implements OnInit {
   currentPage: number = 1;
   pageIterator: Array<{ pageNum: number; clicked: boolean }> = [];
   sliceEnd: number = 10;
+
+  listAllGames: boolean = false;
 
   bannerRegExp = new RegExp(
     '^' +
@@ -190,6 +191,12 @@ export class DataEditorComponent implements OnInit {
   onSortByHead(head: string) {
     this.searchHeader = head;
     this.isSorted = !this.isSorted;
+  }
+
+  // toggling between pagination and all records
+  toggleShowAll() {
+    this.listAllGames = !this.listAllGames;
+    console.log(this.listAllGames);
   }
 
   // filtering -----------------------------------------

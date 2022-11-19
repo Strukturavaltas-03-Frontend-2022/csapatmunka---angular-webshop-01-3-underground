@@ -103,6 +103,11 @@ Additional changes
 - Added pagination to Admin table with 10 products/page
 - Added all filtering options to Admin table
 
+|2022.11.19. - ver. 1.40
+
+- Added alternative "Show All Games" toggler checkbox for pagination on Admin page, that lists all available database records
+- Added emojis for filter options
+
 Short documentation of this application:
 
 This mini demo webshop is hosting a video game library with 100 popular titles within the gaming community. Backend solution is realized with the use of a Firebase realtime database with an additional storage for the banner images.
