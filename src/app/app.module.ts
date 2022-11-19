@@ -29,6 +29,7 @@ import { CarouselComponent } from './util/carousel/carousel.component';
 import { ShoppingCartComponent } from './util/shopping-cart/shopping-cart.component';
 import { TopSalePipe } from './pipes/top-sale.pipe';
 import { SortByHeaderPipe } from './pipes/sort-by-header.pipe';
+import { CustomSlicePipe } from './pipes/custom-slice.pipe';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SortByHeaderPipe } from './pipes/sort-by-header.pipe';
     ShoppingCartComponent,
     TopSalePipe,
     SortByHeaderPipe,
+    CustomSlicePipe,
   ],
   imports: [
     BrowserModule,
