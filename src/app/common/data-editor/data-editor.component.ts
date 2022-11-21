@@ -80,6 +80,10 @@ export class DataEditorComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngDoCheck(): void {
+    this.gameList = this.discountGameListService.getGameList();
+  }
+
   clearInputFields() {
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
@@ -137,10 +141,6 @@ export class DataEditorComponent implements OnInit {
       this.onSaveEditedGame();
     }
     this.clearInputFields();
-    this.productService.fetchProducts().subscribe((games) => {
-      this.gameList = [...games];
-      this.discountGameListService.setGameList(this.gameList);
-    });
   }
 
   onSaveNewGame() {
@@ -158,15 +158,20 @@ export class DataEditorComponent implements OnInit {
     uploadData['onSale'] = Number(this.edit.controls['onSale'].value);
 
     this.productService.addProduct(uploadData).subscribe((addedGame) => {
-      if (this.listAllGames === true) {
-        window.scrollTo({
-          top: 50000,
-          behavior: 'smooth',
-        });
-      } else {
-        console.log(`game was added successfully: ${addedGame}`);
-      }
+      console.log(`game was added successfully: ${addedGame}`);
+
+      this.productService.fetchProducts().subscribe((games) => {
+        this.gameList = [...games];
+        this.discountGameListService.setGameList(this.gameList);
+      });
     });
+
+    if (this.listAllGames === true) {
+      window.scrollTo({
+        top: 50000,
+        behavior: 'smooth',
+      });
+    }
   }
 
   onSaveEditedGame() {
@@ -186,18 +191,25 @@ export class DataEditorComponent implements OnInit {
 
     this.productService
       .updateSingleProduct(uploadData)
-      .subscribe((editedGame) =>
-        console.log(`editing game was successful: ${editedGame}`)
-      );
+      .subscribe((editedGame) => {
+        console.log(`editing game was successful: ${editedGame}`);
+
+        this.productService.fetchProducts().subscribe((games) => {
+          this.gameList = [...games];
+          this.discountGameListService.setGameList(this.gameList);
+        });
+      });
   }
 
   onDeleteGame(game: Product) {
-    this.productService.deleteProduct(game).subscribe((game) => {
+    this.productService.deleteProduct(game).subscribe((deletedGame) => {
+      console.log(`game was deleted successfully: ${deletedGame}`);
+
       this.productService.fetchProducts().subscribe((games) => {
         this.gameList = [...games];
+        this.discountGameListService.setGameList(this.gameList);
       });
     });
-    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSortById() {
@@ -213,7 +225,6 @@ export class DataEditorComponent implements OnInit {
   // toggling between pagination and all records
   toggleShowAll() {
     this.listAllGames = !this.listAllGames;
-    console.log(this.listAllGames);
   }
 
   // filtering -----------------------------------------
