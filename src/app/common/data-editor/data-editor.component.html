@@ -118,7 +118,7 @@
                 <div class="btn-group">
                   <button
                     (click)="onUpdateGame()"
-                    [disabled]="!isValid"
+                    [disabled]="edit.valid === false"
                     class="btn btn-info"
                   >
                     <i class="fa fa-floppy-o" aria-hidden="true"></i></button

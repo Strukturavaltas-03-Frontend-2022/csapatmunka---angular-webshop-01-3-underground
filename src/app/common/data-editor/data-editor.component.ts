@@ -23,7 +23,7 @@ export class DataEditorComponent implements OnInit {
   isAuthenticated: boolean = false;
   isEditing: boolean = false;
   isAddingNewGame: boolean = false;
-  isValid: boolean = false;
+
   currentlyEditedGame: Product = new Product();
 
   allPages: number = 0;
@@ -80,12 +80,16 @@ export class DataEditorComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngDoCheck(): void {
+    this.gameList = this.discountGameListService.getGameList();
+  }
+
   clearInputFields() {
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].disable();
     });
-    this.isValid = false;
+
     this.isEditing = false;
   }
 
@@ -98,7 +102,6 @@ export class DataEditorComponent implements OnInit {
   }
 
   onEditGame(game: Product) {
-    this.isValid = true;
     this.currentlyEditedGame = game;
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue(game[key]);
@@ -113,7 +116,7 @@ export class DataEditorComponent implements OnInit {
 
   onCancelEditingGame() {
     this.isAddingNewGame = false;
-    this.isValid = false;
+
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
       this.edit.controls[key].disable();
@@ -122,7 +125,6 @@ export class DataEditorComponent implements OnInit {
 
   onAddNewGame() {
     this.isAddingNewGame = true;
-    if (this.edit.valid) this.isValid = true;
 
     Object.keys(this.edit.controls).forEach((key) => {
       this.edit.controls[key].setValue('');
@@ -139,7 +141,6 @@ export class DataEditorComponent implements OnInit {
       this.onSaveEditedGame();
     }
     this.clearInputFields();
-    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSaveNewGame() {
@@ -149,16 +150,28 @@ export class DataEditorComponent implements OnInit {
       uploadData.id = this.gameList.length + 1;
     });
 
-    window.scrollTo({
-      top: 50000,
-      behavior: 'smooth',
+    uploadData['catId'] = this.edit.controls['catId'].value
+      .split(',')
+      .map((el: any) => Number(el));
+
+    uploadData['price'] = Number(this.edit.controls['price'].value);
+    uploadData['onSale'] = Number(this.edit.controls['onSale'].value);
+
+    this.productService.addProduct(uploadData).subscribe((addedGame) => {
+      console.log(`game was added successfully: ${addedGame}`);
+
+      this.productService.fetchProducts().subscribe((games) => {
+        this.gameList = [...games];
+        this.discountGameListService.setGameList(this.gameList);
+      });
     });
 
-    this.productService
-      .addProduct(uploadData)
-      .subscribe((addedGame) =>
-        console.log(`game was added successfully: ${addedGame}`)
-      );
+    if (this.listAllGames === true) {
+      window.scrollTo({
+        top: 50000,
+        behavior: 'smooth',
+      });
+    }
   }
 
   onSaveEditedGame() {
@@ -167,20 +180,36 @@ export class DataEditorComponent implements OnInit {
       uploadData[key] = this.edit.controls[key].value;
     });
 
+    if (typeof this.edit.controls['catId'].value === 'string') {
+      uploadData['catId'] = this.edit.controls['catId'].value
+        .split(',')
+        .map((el: any) => Number(el));
+    }
+
+    uploadData['price'] = Number(this.edit.controls['price'].value);
+    uploadData['onSale'] = Number(this.edit.controls['onSale'].value);
+
     this.productService
       .updateSingleProduct(uploadData)
-      .subscribe((editedGame) =>
-        console.log(`editing game was successful: ${editedGame}`)
-      );
+      .subscribe((editedGame) => {
+        console.log(`editing game was successful: ${editedGame}`);
+
+        this.productService.fetchProducts().subscribe((games) => {
+          this.gameList = [...games];
+          this.discountGameListService.setGameList(this.gameList);
+        });
+      });
   }
 
   onDeleteGame(game: Product) {
-    this.productService.deleteProduct(game).subscribe((game) => {
+    this.productService.deleteProduct(game).subscribe((deletedGame) => {
+      console.log(`game was deleted successfully: ${deletedGame}`);
+
       this.productService.fetchProducts().subscribe((games) => {
         this.gameList = [...games];
+        this.discountGameListService.setGameList(this.gameList);
       });
     });
-    this.discountGameListService.setGameList(this.gameList);
   }
 
   onSortById() {
@@ -196,7 +225,6 @@ export class DataEditorComponent implements OnInit {
   // toggling between pagination and all records
   toggleShowAll() {
     this.listAllGames = !this.listAllGames;
-    console.log(this.listAllGames);
   }
 
   // filtering -----------------------------------------
