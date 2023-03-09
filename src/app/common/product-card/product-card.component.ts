@@ -9,7 +9,7 @@ import { Product } from 'src/app/model/product';
 })
 export class ProductCardComponent implements OnInit {
   @Input() game: Product = new Product();
-  @Input() cardMargin: string = 'my-5 mx-5';
+  @Input() cardMargin: string = 'my-5 mx-4';
   @Output() itemAdded: EventEmitter<Cart> = new EventEmitter();
   isHovered: boolean = false;
   cardClicked: boolean = false;

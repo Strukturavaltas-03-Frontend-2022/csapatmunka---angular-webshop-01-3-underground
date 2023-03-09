@@ -1,1 +1,64 @@
+.navbar-nav {
+  font-family: "Genos", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.4em;
+}
 
+.nav-link:hover {
+  color: #a949c1 !important;
+}
+
+.navbar-brand {
+  font-family: "Genos", sans-serif;
+  font-weight: 500;
+  font-size: 1.8em !important;
+}
+
+.logo_main:hover {
+  animation: pulsate 2s infinite;
+  animation: wiggle 0.5s;
+}
+
+.logo_main {
+  animation: pulsate 2s infinite;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.user-login {
+  color: white;
+}
+
+.user-login:hover {
+  color: #a949c1;
+  cursor: pointer;
+}
