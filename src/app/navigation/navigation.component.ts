@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConfigService, IMenuItem } from '../service/config.service';
 
@@ -11,7 +12,11 @@ export class NavigationComponent implements OnInit {
   appName: string = this.config.appName;
   menuItems: IMenuItem[] = this.config.menuItems;
 
-  constructor(private config: ConfigService) {}
+  constructor(private config: ConfigService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  onUserLogin(): void {
+    this.router.navigate(['/admin']);
+  }
 }

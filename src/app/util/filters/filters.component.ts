@@ -1,4 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { genres } from 'src/app/model/genres';
 
@@ -13,6 +22,7 @@ export class FiltersComponent implements OnInit {
   f2pCheck: boolean = false;
   priceRanges: string[] = [];
   searchKey: string = '';
+  searching: boolean = false;
 
   genres: Category[] = genres;
 
@@ -22,7 +32,13 @@ export class FiltersComponent implements OnInit {
   @Output() priceRangeChange: EventEmitter<string[]> = new EventEmitter();
   @Output() keywordChange: EventEmitter<string> = new EventEmitter();
 
-  constructor() {}
+  @ViewChild('inputSearch') inputField: ElementRef<HTMLInputElement> =
+    {} as ElementRef;
+
+  constructor(
+    private renderer: Renderer2,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
 
@@ -67,5 +83,13 @@ export class FiltersComponent implements OnInit {
 
   onTitleSearch(): void {
     this.keywordChange.emit(this.searchKey);
+  }
+
+  onClickSearch(): void {
+    this.searching = !this.searching;
+    this.changeDetector.detectChanges();
+
+    this.inputField.nativeElement.focus();
+    //this.renderer.selectRootElement(this.inputField.nativeElement).focus();
   }
 }

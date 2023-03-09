@@ -8,7 +8,7 @@
   <div
     [ngClass]="cardMargin"
     class="card bg-dark"
-    style="width: 18rem; height: 18rem; border-radius: 1em"
+    style="width: 25rem; height: 20rem; border-radius: 1em"
   >
     <ng-container *ngIf="isHovered === false">
       <img
@@ -32,14 +32,12 @@
         <source [src]="game.video" type="video/webm" />
       </video>
     </ng-container>
-    <div
-      class="card-body text-white d-flex flex-column justify-content-between"
-    >
+    <div class="card-body text-white d-flex flex-column justify-content-around">
       <h5 class="card-title">{{ game.name }}</h5>
       <p class="card-text">
         <span *ngIf="game.onSale !== 0 && game.price !== 0"
-          ><s style="color: #007be6">
-            {{ game.price | sale: game.onSale | currency }} </s
+          ><s style="color: #a949c1">
+            {{ game.price | sale : game.onSale | currency }} </s
           >🏷️</span
         >
 

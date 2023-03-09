@@ -1,13 +1,13 @@
-<div class="container-fluid">
+<div class="container-fluid w-75">
   <div class="row d-flex justify-content-center">
     <app-product-card
       *ngFor="
         let game of gameList
-          | filterByGenre: genreParams
-          | filterByDiscount: saleChecker
-          | filterByF2p: freeChecker
-          | filterByPrice: priceRanges
-          | filterByTitle: searchString
+          | filterByGenre : genreParams
+          | filterByDiscount : saleChecker
+          | filterByF2p : freeChecker
+          | filterByPrice : priceRanges
+          | filterByTitle : searchString
       "
       [game]="game"
     ></app-product-card>

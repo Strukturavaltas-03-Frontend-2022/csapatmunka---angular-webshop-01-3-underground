@@ -10,13 +10,13 @@ export interface IMenuItem {
   providedIn: 'root',
 })
 export class ConfigService {
-  appName: string = 'Void Games';
+  appName: string = 'PRISM-gaming';
 
   menuItems: IMenuItem[] = [
     { text: 'Home', link: '/', icon: 'home' },
     { text: 'Featured', link: '/featured' },
     { text: 'Sales', link: '/sales' },
-    { text: 'Admin', link: '/admin' },
+    // { text: 'Admin', link: '/admin' },
   ];
 
   constructor() {}

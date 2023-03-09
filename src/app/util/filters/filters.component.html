@@ -1,17 +1,18 @@
-<div class="row py-5">
-  <div
-    class="col-lg-12 col-sm-12 mx-auto my-auto d-flex flex-lg-row flex-column align-items-center justify-content-center"
-  >
-    <div class="dropdown mx-lg-5 my-sm-2">
+<div class="py-2"></div>
+<div
+  class="filter-container row mx-auto my-auto d-flex justify-content-center align-items-center"
+>
+  <div class="filter-inner-container col-lg-12 col-sm-12">
+    <div class="dropdown">
       <button
-        class="btn btn-dark dropdown-toggle"
+        class="btn shadow-none btn-transparent text-white dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
       >
-        Filter by genre 🕹️
+        🕹️Filter by genre
       </button>
       <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
         <label *ngFor="let genre of genres" class="dropdown-item text-white">
@@ -21,16 +22,16 @@
       </div>
     </div>
 
-    <div class="dropdown mx-lg-5 my-sm-2">
+    <div class="dropdown">
       <button
-        class="btn btn-dark dropdown-toggle"
+        class="btn shadow-none btn-transparent text-white dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
       >
-        Filter by price 💲
+        💲Filter by price
       </button>
       <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
         <label class="dropdown-item text-white">
@@ -44,37 +45,46 @@
         </label>
       </div>
     </div>
-    <label class="mx-lg-5 my-sm-2 text-white bg-dark p-2 rounded">
-      <input type="checkbox" (click)="toggleDiscounted()" /> On-Sale 🏷️
+    <label class="text-white bg-transparent p-2 m-0 d-flex">
+      🏷️On-Sale
+      <input class="mx-1" type="checkbox" (click)="toggleDiscounted()" />
     </label>
-    <label class="mx-lg-5 my-sm-2 text-white bg-dark p-2 rounded">
-      <input type="checkbox" (click)="toggleF2P()" /> Free to Play 🆓
+    <label class="text-white bg-transparent py-2 pl-2 m-0 d-flex">
+      🆓Free to Play
+      <input class="mx-1" type="checkbox" (click)="toggleF2P()" />
     </label>
 
-    <div class="input-group d-flex mx-lg-5 my-sm-2 w-25">
+    <div *ngIf="searching" class="search-field d-flex my-sm-2">
       <input
         type="text"
-        class="form-control"
+        class="inbar-search shadow-none form-control"
         [(ngModel)]="searchKey"
         (keyup)="onTitleSearch()"
         aria-label="search word"
         aria-describedby="searchkey"
+        placeholder="Search for game title"
+        #inputSearch
       />
-      <div class="input-group-append">
+      <!-- <div class="input-group-append">
         <span
-          class="input-group-text bg-dark text-white border-0"
+          class="input-group-text bg-transparent text-white border-0"
           id="searchkey"
           >Search for game title 📃</span
         >
-      </div>
+      </div> -->
     </div>
 
-    <!--<input
-      class="form-control mx-lg-5 my-md-2 w-25"
-      placeholder="Search for game title"
-      type="textarea"
-      [(ngModel)]="searchKey"
-      (keyup)="onTitleSearch()"
-    />-->
+    <span *ngIf="searching" class="placeholder ml-auto"></span>
+
+    <span
+      *ngIf="!searching"
+      class="search-icon ml-auto"
+      (click)="onClickSearch()"
+    >
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="searching" class="close-search" (click)="onClickSearch()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
   </div>
 </div>

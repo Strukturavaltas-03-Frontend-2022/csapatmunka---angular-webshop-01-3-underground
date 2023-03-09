@@ -6,7 +6,7 @@
 
 <div *ngIf="isAuthenticated" class="container-fluid">
   <h3 class="py-3 text-center text-white">
-    Welcome back <b class="text-primary">{{ userName }}</b>
+    Welcome back <b style="color: #a949c1">{{ userName }}</b>
   </h3>
 
   <app-filters
@@ -23,7 +23,8 @@
           <ul class="pagination justify-content-center">
             <li (click)="onArrowClick('-')" class="page-item">
               <a
-                class="page-link bg-primary text-white border-secondary"
+                style="background: #a949c1"
+                class="page-link border-secondary"
                 aria-label="Previous"
               >
                 <span aria-hidden="true">&laquo;</span>
@@ -47,7 +48,8 @@
 
             <li (click)="onArrowClick('+')" class="page-item">
               <a
-                class="page-link bg-primary text-white border-secondary"
+                style="background: #a949c1"
+                class="page-link border-secondary"
                 aria-label="Next"
               >
                 <span aria-hidden="true">&raquo;</span>
@@ -136,13 +138,13 @@
             <tr
               *ngFor="
                 let game of gameList
-                  | customSlice: listAllGames:sliceEnd - 10:sliceEnd
-                  | filterByGenre: genreParams
-                  | filterByDiscount: saleChecker
-                  | filterByF2p: freeChecker
-                  | filterByPrice: priceRanges
-                  | filterByTitle: searchString
-                  | sortByHeader: isSorted:searchHeader
+                  | customSlice : listAllGames : sliceEnd - 10 : sliceEnd
+                  | filterByGenre : genreParams
+                  | filterByDiscount : saleChecker
+                  | filterByF2p : freeChecker
+                  | filterByPrice : priceRanges
+                  | filterByTitle : searchString
+                  | sortByHeader : isSorted : searchHeader
               "
             >
               <td>{{ game.id }}</td>

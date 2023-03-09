@@ -2,12 +2,18 @@
   class="d-flex flex-column vh-100 vw-100 justify-content-center align-items-center bg-light"
 >
   <div class="customlogo m-4">
-    <img src="../../../favicon.ico" style="height: 50px" alt="brand logo" />
+    <img
+      src="https://firebasestorage.googleapis.com/v0/b/games-webshop.appspot.com/o/prims.png?alt=media&token=a2cc8792-57ce-4016-8d51-555b53556aa3"
+      style="height: 50px"
+      alt="brand logo"
+    />
   </div>
 
   <div class="tab-content col-lg-2">
     <form (ngSubmit)="onSubmit()" [formGroup]="login">
-      <h3 class="text-center mb-4">Please sign in to access this content</h3>
+      <h3 class="text-center mb-4">
+        Please sign in to access additional content
+      </h3>
 
       <div class="form-outline mb-1">
         <input
@@ -53,8 +59,13 @@
         Sign in
       </button>
 
+      <div class="d-flex justify-content-between register lostpw">
+        <span> <a href="">No account yet?</a> </span>
+        <span> <a href="">Forgot password</a> </span>
+      </div>
+
       <div class="copyright text-center mt-5">
-        <p>©Void Games 2022</p>
+        <p>©PRISM Games 2023</p>
       </div>
     </form>
   </div>

@@ -10,5 +10,16 @@
   border-radius: 10px;
   margin: 0 auto;
   color: white;
-  border: 2px solid rgb(52, 109, 208);
+  border: 2px solid #a949c1;
+}
+
+.register a,
+.lostpw a {
+  text-decoration: none;
+  color: black;
+}
+.register a:hover,
+.lostpw a:hover {
+  text-decoration: none;
+  color: #a949c1;
 }

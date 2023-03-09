@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
-  <a class="navbar-brand text-primary" routerLink="/"
-    ><img src="../../favicon.ico" style="height: 40px" alt="" />
+  <a class="navbar-brand" style="color: #a949c1" routerLink="/">
+    <img
+      src="https://firebasestorage.googleapis.com/v0/b/games-webshop.appspot.com/o/prims.png?alt=media&token=a2cc8792-57ce-4016-8d51-555b53556aa3"
+      style="height: 50px"
+      alt="prism gaming logo"
+      class="logo_main"
+    />
     {{ appName }}
   </a>
   <button
@@ -16,13 +21,16 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav ml-auto">
       <li *ngFor="let item of menuItems" class="nav-item">
         <a class="nav-link text-white" [routerLink]="item.link">
           {{ item.text }}</a
         >
       </li>
     </ul>
-    <app-shopping-cart></app-shopping-cart>
   </div>
+  <div class="mx-3 user-login" (click)="onUserLogin()">
+    <i class="fa fa-2x fa-user-circle-o" aria-hidden="true"></i>
+  </div>
+  <app-shopping-cart></app-shopping-cart>
 </nav>
